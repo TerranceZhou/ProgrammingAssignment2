@@ -3,24 +3,37 @@
 
 ## Write a short comment describing this function
 
-makeCacheMatrix <- function(x = matrix()) {
+##makeCacheMatrix set and get the square martix and its inverse martix
+
+makeCacheMatrix <- function(x = matrix()){
   
+  ## test if a square martix inputed
+  
+  try(if (nrow(x)!=ncol(x)) stop("square matrix only"))
   m <- NULL
+  
+  ## set martix
   set <- function(y) {
     x <<- y
     m <<- NULL
   }
+  
+  ## get martix
   get <- function() x
+  
+  ##set inverse martix
   setinverse <- function(inverse) m <<- inverse
+  ##get inverse martix
   getinverse <- function() m
+  
+  ## return the result
   list(set = set, get = get,
        setinverse = setinverse,
-       getinverse = getinverse)
-
-}
+       getinverse = getinverse)}
 
 
-## Write a short comment describing this function
+## cacheSolve checks if there is a memory result, if yes, get from there
+## if not, use makeCacheMatrix to build one
 
 cacheSolve <- function(x, ...) {
   
@@ -33,15 +46,9 @@ cacheSolve <- function(x, ...) {
   m <- solve(data, ...)
   x$setinverse(m)
   m
-        ## Return a matrix that is the inverse of 'x'
+       
+ ## Return a matrix that is the inverse of 'x'
 }
 
 
-test<-matrix(c(1,1,1,3,4,3,3,3,4),3,3)
-test
-test2<-makeCacheMatrix(test)
-
-cacheSolve(test2)
-
-solve(test)
 
